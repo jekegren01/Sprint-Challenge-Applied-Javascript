@@ -9,6 +9,8 @@
 //    <div class="tab">topic here</div>
 
 axios.get("https://lambda-times-backend.herokuapp.com/topics").then(res=>{
+    console.log('Here is the response: ', res);
+    //Data is held at Object.data.topics
      const topics = res.data.topics;
      const topicsContainer = document.querySelector(".topics");
      topics.forEach(topic=>{
@@ -18,5 +20,5 @@ axios.get("https://lambda-times-backend.herokuapp.com/topics").then(res=>{
          topicsContainer.appendChild(tab);
      })
  }).catch(err=>{
-     console.log(err);
+     console.log('There was an error: ', err);
  }); 
