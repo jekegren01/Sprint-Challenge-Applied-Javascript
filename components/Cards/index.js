@@ -19,43 +19,48 @@
 //
 // Use your function to create a card for each of the articles and add the card to the DOM.
 
+
+function createCard({authorName, authorPhoto, headline}){
+    //create all elements
+    const card = document.createElement("div");
+    const headlineContainer = document.createElement("div");
+    const author = document.createElement("div");
+    const imgContainer = document.createElement("div");
+    const img = document.createElement("img");
+    const name = document.createElement("span");
+    
+    //add Styling
+    card.classList.add("card");
+    headlineContainer.classList.add("headline");
+    author.classList.add("author");
+    imgContainer.classList.add("img-container");
+    
+    //update content
+    headlineContainer.textContent = headline;
+    img.src = authorPhoto;
+    name.textContent = `By ${authorName}`;
+    
+    //appending
+    imgContainer.appendChild(img);
+    author.append(imgContainer, name);
+    card.append(headlineContainer, author);
+    
+    
+    
+    
+    
+    return card;
+} 
+
 axios.get("https://lambda-times-backend.herokuapp.com/articles").then(res=>{
-     const cardsContainer = document.querySelector(".cards-container");
-     const articles = res.data.articles;
-     for(key in articles){
-         articles[key].forEach(article=>{
-             const card = createCard(article);
-             cardsContainer.appendChild(card);
-         });
-     }
- }).catch(err=>{
-     console.log(err);
- });
-
- function createCard({authorName, authorPhoto, headline}){
-     const card = document.createElement("div");
-     card.classList.add("card");
-
-     const headlineContainer = document.createElement("div");
-     headlineContainer.classList.add("headline");
-     headlineContainer.textContent = headline;
-
-     const author = document.createElement("div");
-     author.classList.add("author");
-
-     const imgContainer = document.createElement("div");
-     imgContainer.classList.add("img-container");
-
-     const img = document.createElement("img");
-     img.src = authorPhoto;
-
-     imgContainer.appendChild(img);
-
-     const name = document.createElement("span");
-     name.textContent = `By ${authorName}`;
-
-     author.append(imgContainer, name);
-
-     card.append(headlineContainer, author);
-     return card;
- } 
+        const cardsContainer = document.querySelector(".cards-container");
+        const articles = res.data.articles;
+        for(key in articles){
+            articles[key].forEach(article=>{
+                const card = createCard(article);
+                cardsContainer.appendChild(card);
+            });
+        }
+    }).catch(err=>{
+        console.log(err);
+    });
